@@ -1,0 +1,165 @@
+/* --- Basic Setup & Theming Variables --- */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --light-bg: #ecf0f1;
+    --light-surface: #ffffff;
+    --light-text: #2c3e50;
+    --dark-bg: #2c3e50;
+    --dark-surface: #34495e;
+    --dark-text: #ecf0f1;
+    --font-family: 'Poppins', sans-serif;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+body.dark-mode {
+    --light-bg: #2c3e50;
+    --light-surface: #34495e;
+    --light-text: #ecf0f1;
+    --dark-bg: #ecf0f1;
+    --dark-surface: #ffffff;
+    --dark-text: #2c3e50;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--light-bg);
+    color: var(--light-text);
+    margin: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Utility Classes --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s;
+}
+.btn-primary { background-color: var(--primary-color); }
+.btn-primary:hover { background-color: #2980b9; }
+.btn-danger { background-color: var(--danger-color); }
+.btn-danger:hover { background-color: #c0392b; }
+
+/* --- Header & Theme Toggle --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--light-surface);
+    box-shadow: var(--shadow);
+}
+.header h1 { margin: 0; color: var(--primary-color); font-size: 1.5rem; }
+.header h1 .logo { font-size: 2rem; margin-right: 0.5rem; }
+.theme-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* --- Auth Forms (Index Page) --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+.auth-wrapper {
+    background: var(--light-surface);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+}
+.form-header { text-align: center; margin-bottom: 1.5rem; }
+.form-header h2 { margin-bottom: 0.5rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.captcha-group { display: flex; align-items: center; gap: 10px; }
+.captcha-group svg { border-radius: 5px; }
+.form-actions { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+.form-actions a { color: var(--primary-color); text-decoration: none; }
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+.auth-toggle { text-align: center; margin-top: 1.5rem; }
+.auth-toggle a { cursor: pointer; color: var(--primary-color); font-weight: bold; }
+.message { padding: 1rem; margin-bottom: 1rem; border-radius: 5px; background-color: #f8d7da; color: #721c24; }
+
+/* --- Dashboards --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+@media (min-width: 992px) {
+    .dashboard-grid { grid-template-columns: 1fr 1.5fr; }
+}
+.card {
+    background: var(--light-surface);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.card h2, .card h3 { color: var(--primary-color); margin-top: 0; }
+
+/* --- Citizen Dashboard Specifics --- */
+.user-info { margin-bottom: 1.5rem; }
+.complaints-list { max-height: 600px; overflow-y: auto; padding-right: 10px; }
+.complaint-item {
+    border: 1px solid #ddd;
+    border-left: 5px solid var(--primary-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.complaint-item-info h4 { margin: 0 0 0.5rem 0; }
+.complaint-item-info p { margin: 0.2rem 0; font-size: 0.9rem; }
+.complaint-item-meta { text-align: right; }
+.complaint-status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.status-Sent { background-color: #95a5a6; }
+.status-Viewed { background-color: #3498db; }
+.status-On.Progress { background-color: #f1c40f; color: #333; }
+.status-Resolved { background-color: #2ecc71; }
+
+/* --- Admin Dashboard Specifics --- */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { text-align: center; }
+.stat-card .count { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); }
+.filters { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.complaint-table { width: 100%; border-collapse: collapse; }
+.complaint-table th, .complaint-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+.complaint-table th { background-color: #f2f2f2; color: #333; }
+body.dark-mode .complaint-table th { background-color: #4a6278; color: var(--dark-text); }
+.resolved-complaints-container { margin-top: 2rem; }
+.hidden { display: none; }

@@ -1,0 +1,84 @@
+<%- include('partials/header', { title: 'Citizen Dashboard' }) %>
+
+<header class="header">
+    <h1><span class="logo">🏙️</span>Urban Voice</h1>
+    <div>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+        <span id="theme-toggle" class="theme-toggle">🌙</span>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card user-info">
+        <h2>Welcome, <%= user.name %></h2>
+        <p><strong>Phone:</strong> <%= user.phone %></p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h3>File a New Complaint</h3>
+            <form action="/citizen/complaint" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="complaintName">Complaint Title</label>
+                    <input type="text" id="complaintName" name="complaintName" required>
+                </div>
+                <div class="form-group">
+                    <label for="complaintType">Complaint Type</label>
+                    <select id="complaintType" name="complaintType" required>
+                        <option value="">--Select Type--</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Water">Water</option>
+                        <option value="Road">Road</option>
+                        <option value="Garbage">Garbage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address / Location</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="complaintImage">Add Image (Max 5MB)</label>
+                    <input type="file" id="complaintImage" name="complaintImage" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Complaint</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h3>My Complaints</h3>
+             <div class="form-group">
+                 <input type="search" id="complaint-search" placeholder="Search by title or number...">
+             </div>
+            <div class="complaints-list">
+                <% if(complaints.length > 0) { %>
+                    <% complaints.forEach(complaint => { %>
+                        <div class="complaint-item">
+                            <div class="complaint-item-info">
+                                <h4><%= complaint.complaintName %></h4>
+                                <p><strong>#:</strong> <%= complaint.complaintNumber %></p>
+                                <p><strong>Type:</strong> <%= complaint.complaintType %></p>
+                                <p class="time-ago" data-date="<%= complaint.createdAt.toISOString() %>">
+                                    <%= complaint.createdAt.toLocaleDateString() %>
+                                </p>
+                            </div>
+                            <div class="complaint-item-meta">
+                                <span class="complaint-status status-<%= complaint.status.replace(' ', '.') %>">
+                                    <%= complaint.status %>
+                                </span>
+                                <button class="btn btn-danger delete-complaint-btn" data-id="<%= complaint._id %>" style="margin-top: 10px;">Delete</button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>You have not filed any complaints yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
